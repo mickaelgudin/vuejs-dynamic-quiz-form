@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <div id="div" style="margin-left: 9rem;">
+    	<h1>Total number of question : {{totalNumberOfQuestion}}</h1>
+    	<div class="row">
+			<div class="form-group col-md-6">
+			  <label>How many questions do you want to add?</label>
+			  <input type="number" name="nombreQuestionSouhaite" v-model="numberOfDesiredQuestion">
+			  <i class="fa fa-plus border border-dark p-2" v-on:click.self="addMultipleQuestions"></i>
+			</div>
+			  
+			</div>
+
+			<div v-for="q in questions">
+			<div class="form-group col-md-10" style="text-align: center">
+			  <label class="control-label required font-weight-bold">
+			      Question {{q.questionNumber}}
+			  </label>
+			  <input class="form-control" type="text" v-model="q.textOfQuestion" :name="'question-' + q.questionNumber"/>
+			</div>
+
+			<div class="form-group">
+			  <div v-for="(reponse, n) in q.answers">
+			      <div class="row">
+			          <label >
+			              Answer {{n+1}}
+			          </label>
+			          <input class="form-control col-md-4 mb-2" type="text" v-model="reponse.intitule" :name="`reponse-${q.questionNumber}-${n+1}`"/>
+			          <label class="col-md-4 mb-2">True ? <input type="checkbox" :name="'estvrai-'+ q.questionNumber +'-' + n" v-model="reponse.checked" @click="checkReponse"/></label>
+			      </div>
+			  </div>
+			  <div class="row mt-2">
+			      <button type="button" class="btn btn-primary buttonsQuiz col-md-1 col-sm-4 mr-2" v-on:click.self="addReponse" :name="q.questionNumber"><i class="fa fa-plus-circle"> answer</i></button>
+			      <button type="button" class="btn btn-danger buttonsQuiz col-md-1 col-sm-4" v-on:click.self="removeReponse" :name="q.questionNumber"><i class="fa fa-minus-circle"> answer</i></button>
+			  </div>
+			  <div class="row mt-2">
+			      <button type="button" class="btn btn-primary buttonsQuiz col-md-1 col-sm-4 mr-2" v-on:click.self="addQuestion"><i class="fa fa-plus-circle"> question</i></button>
+			      <button type="button" class="btn btn-danger buttonsQuiz col-md-1 col-sm-4" v-on:click.self="removeQuestion" :name="q.questionNumber"><i class="fa fa-minus-circle"> question</i></button>
+			  </div>
+			  <hr>
+			</div>
+
+			</div>
+			<div class ="submit">
+			<input type="submit" class="btn btn-primary mt-4 col-md-5 col-sm-2" name="submit_quiz" value="Soumettre le quiz">
+			</div>	
+		</div>
+	</div> 
+	
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+  <script src="app.js"></script>
+</html>
